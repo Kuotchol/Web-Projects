@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chest X-ray Analysis</title>
+    <link rel="stylesheet" href="static/bootstrap.min.css">
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">TB</div>
+        <h1>AI-powered Tuberculosis App</h1>
+    </header>
+
+    <main>
+        <h2>Chest X-Ray Analysis</h2>
+        <button class="home-button" onclick="goHome()">Home Button</button>
+
+        <div class="upload-section">
+            <label for="fileUpload">Upload File</label>
+            <input type="file" id="fileUpload" accept="image/*" onchange="previewImage(event)">
+            
+            <div class="image-preview">
+                <img id="preview" src="" alt="This image appears only after choosing file.">
+            </div>
+
+            <button class="process-button" onclick="processImage()">Process Image</button>
+        </div>
+
+        <div class="analysis-result">
+            <h3>Image Analysis:</h3>
+            <p><strong>Class:</strong> <span id="classification">Normal or Tuberculosis</span></p>
+            <p><strong>Certainty:</strong> <span id="certainty">Probability in percentage</span></p>
+        </div>
+    </main>
+
+    <footer>
+        <p id="left-footer">&copy; <span id="year"></span> All rights reserved</p>
+        <p id="right-footer">Designed and developed by TFs25</p>
+    </footer>
+
+    <script>
+        // Update footer year dynamically
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        function goHome() {
+            window.location.href = "index.html";
+        }
+
+        function previewImage(event) {
+            const preview = document.getElementById('preview');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    preview.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function processImage() {
+            // Simulated AI processing logic
+            const randomProbability = (Math.random() * 100).toFixed(2);
+            const isTuberculosis = randomProbability > 50 ? "Tuberculosis Detected" : "Normal";
+
+            document.getElementById('classification').textContent = isTuberculosis;
+            document.getElementById('certainty').textContent = `${randomProbability}%`;
+        }
+    </script>
+</body>
+</html>
